@@ -52,3 +52,6 @@
   left: 3px;
   top: 3px;
 }
+.button-active {
+  background-color: #6995dc;
+}

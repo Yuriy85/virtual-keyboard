@@ -44,19 +44,22 @@ for (let index = 0; index < 65; index += 1) {
 
 class BaseData {
   constructor() {
-    this.ruMain = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', '\\', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '/'];
-    this.enMain = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '.', ',', '/'];
+    this.allCode = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete', 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
+    this.ruMain = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', '\\', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '/', ' '];
+    this.enMain = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '.', ',', '/', ' '];
+    this.mainCode = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Period', 'Comma', 'Slash', 'Space'];
     this.enExtra = ['~', '!', '@', '#', '$', '%', ':', '?', '*', '(', ')', '_', '+', '/'];
     this.ruExtra = ['', '!', '"', '№', ';', '%', '^', '&', '*', '(', ')', '_', '+', '|'];
-    this.option = ['Backspace', 'Tab', 'DEL', 'Caps Lock', 'ENTER', 'Shift', '^', 'Shift', 'Ctrl', 'Win', 'Alt', '', 'Alt', 'Ctrl', '<', 'v', '>'];
+    this.option = ['Backspace', 'Tab', 'DEL', 'Caps Lock', 'ENTER', 'Shift', '^', 'Shift', 'Ctrl', 'Win', 'Alt', 'Alt', 'Ctrl', '<', 'v', '>'];
   }
 }
 
 const data = new BaseData();
 
-const mainButton = Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i < 13 || (i > 14 && i < 28) || (i > 29 && i < 41) || (i > 42 && i < 54));
+const allButtons = Array.from(document.querySelectorAll('.keyboard__button'));
+const mainButton = Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i < 13 || (i > 14 && i < 28) || (i > 29 && i < 41) || (i > 42 && i < 54) || i === 59);
 const extraButton = Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i < 13 || i === 27);
-const optionButton = Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i === 13 || i === 14 || i === 28 || i === 29 || i === 41 || i === 42 || i >= 54);
+const optionButton = Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i === 13 || i === 14 || i === 28 || i === 29 || i === 41 || i === 42 || (i >= 54 && i !== 59));
 
 function inputValue() {
   mainButton.forEach((v, i) => {
@@ -77,4 +80,17 @@ function inputValue() {
 }
 inputValue();
 
-console.log(optionButton);
+document.addEventListener('keydown', (v) => {
+  data.allCode.forEach((code, i) => {
+    if (code === v.code && code !== 'CapsLock') {
+      allButtons[i].classList.add('button-active');
+    }
+    if (code === v.code && code === 'CapsLock') {
+      allButtons[i].classList.toggle('button-active');
+    }
+  });
+});
+
+document.addEventListener('keyup', (v) => {
+  data.allCode.forEach((code, i) => code === v.code && code !== 'CapsLock' ? allButtons[i].classList.remove('button-active') : null);
+});
