@@ -26,6 +26,9 @@
   margin-bottom: 15px;
   padding: 2px;
 }
+.keyboard__text:focus-visible {
+  outline: none;
+}
 .wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -36,12 +39,19 @@
   width: 57px;
   height: 57px;
   background-color: #4f5a69;
-  border-radius: 3px;
-  border-width: 3px;
+  border-radius: 5px;
+  border-width: 5px;
   font-weight: 600;
   font-size: 21px;
   color: aliceblue;
   position: relative;
+  transition: all 0.1s;
+}
+.keyboard__button:hover {
+  cursor: pointer;
+}
+.keyboard__button:focus-visible {
+  outline: none;
 }
 .button-dark {
   background-color: #1c232e;
@@ -54,4 +64,5 @@
 }
 .button-active {
   background-color: #6995dc;
+  border-style: inset;
 }
