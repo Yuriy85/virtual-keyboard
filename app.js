@@ -56,8 +56,21 @@ const data = new BaseData();
 
 const allButtons = Array.from(document.querySelectorAll('.keyboard__button'));
 const mainButtons = Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i < 13 || (i > 14 && i < 28) || (i > 29 && i < 41) || (i > 42 && i < 54) || i === 59);
-const extraButton = Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i < 13 || i === 27);
-const optionButton = Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i === 13 || i === 14 || i === 28 || i === 29 || i === 41 || i === 42 || (i >= 54 && i !== 59));
+const extraButtons = Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i < 13 || i === 27);
+const optionButtons = Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i === 13 || i === 14 || i === 28 || i === 29 || i === 41 || i === 42 || (i >= 54 && i !== 59));
+
+const backSpace = optionButtons[0];
+const tab = optionButtons[1];
+const del = optionButtons[2];
+const capsLock = optionButtons[3];
+const enter = optionButtons[4];
+const shiftLeft = optionButtons[5];
+const cursorTop = optionButtons[6];
+const shiftRight = optionButtons[7];
+const ctrlLeft = optionButtons[8];
+const cursorLeft = optionButtons[13];
+const cursorBottom = optionButtons[14];
+const cursorRight = optionButtons[15];
 
 function insertText(textarea, text) {
   const txt = textarea;
@@ -67,6 +80,26 @@ function insertText(textarea, text) {
   txt.value = finText;
   txt.focus();
   txt.selectionEnd = start === end ? end + text.length : end;
+}
+
+function delText(textarea) {
+  const txt = textarea;
+  const start = txt.selectionStart;
+  const end = txt.selectionEnd;
+  const finText = txt.value.substring(0, start) + txt.value.substring(end + 1);
+  txt.value = finText;
+  txt.focus();
+  txt.selectionEnd = start === end ? start : end;
+}
+
+function backText(textarea) {
+  const txt = textarea;
+  const start = txt.selectionStart;
+  const end = txt.selectionEnd;
+  const finText = txt.value.substring(0, start - 1) + txt.value.substring(end);
+  txt.value = finText;
+  txt.focus();
+  txt.selectionEnd = start !== 0 ? end - 1 : start;
 }
 
 function inputValue() {
@@ -79,14 +112,14 @@ function inputValue() {
     const button = v;
     button.innerText = lang === 'en' ? data.enMain[i].toUpperCase() : data.ruMain[i].toUpperCase();
   });
-  extraButton.forEach((v, i) => {
+  extraButtons.forEach((v, i) => {
     const button = v;
     const extraArea = document.createElement('span');
     extraArea.className = 'button__extra';
     button.appendChild(extraArea);
     extraArea.innerText = lang === 'en' ? data.enExtra[i].toUpperCase() : data.ruExtra[i].toUpperCase();
   });
-  optionButton.forEach((v, i) => {
+  optionButtons.forEach((v, i) => {
     const button = v;
     button.innerText = data.option[i];
   });
@@ -102,16 +135,20 @@ document.addEventListener('keydown', (v) => {
   if (data.mainCode.indexOf(v.code) !== -1) {
     v.preventDefault();
     if (lang === 'en') {
-      if ((optionButton[3].classList.contains('button-active') || optionButton[5].classList.contains('button-active') || optionButton[7].classList.contains('button-active')) && data.extraCode.indexOf(v.code) === -1) {
-        insertText(textArea, data.enMain[data.mainCode.indexOf(v.code)].toUpperCase());
-      } else if (data.extraCode.indexOf(v.code) !== -1 && ((optionButton[5].classList.contains('button-active') || optionButton[7].classList.contains('button-active')))) {
+      if (capsLock.classList.contains('button-active') && (shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active'))) {
+        insertText(textArea, data.enMain[data.mainCode.indexOf(v.code)]);
+      } else if (data.extraCode.indexOf(v.code) !== -1 && ((shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active')))) {
         insertText(textArea, data.enExtra[data.extraCode.indexOf(v.code)]);
+      } else if ((capsLock.classList.contains('button-active') || shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active')) && data.extraCode.indexOf(v.code) === -1) {
+        insertText(textArea, data.enMain[data.mainCode.indexOf(v.code)].toUpperCase());
       } else (insertText(textArea, data.enMain[data.mainCode.indexOf(v.code)]));
     } else if (lang === 'ru') {
-      if ((optionButton[3].classList.contains('button-active') || optionButton[5].classList.contains('button-active') || optionButton[7].classList.contains('button-active')) && data.extraCode.indexOf(v.code) === -1) {
+      if (capsLock.classList.contains('button-active') && (shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active'))) {
+        insertText(textArea, data.ruMain[data.mainCodeRu.indexOf(v.code)]);
+      } else if (data.extraCode.indexOf(v.code) !== -1 && ((shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active')))) {
+        insertText(textArea, data.enExtra[data.extraCode.indexOf(v.code)]);
+      } else if ((capsLock.classList.contains('button-active') || shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active')) && data.extraCode.indexOf(v.code) === -1) {
         insertText(textArea, data.ruMain[data.mainCodeRu.indexOf(v.code)].toUpperCase());
-      } else if (data.extraCode.indexOf(v.code) !== -1 && ((optionButton[5].classList.contains('button-active') || optionButton[7].classList.contains('button-active')))) {
-        insertText(textArea, data.ruExtra[data.extraCode.indexOf(v.code)]);
       } else (insertText(textArea, data.ruMain[data.mainCodeRu.indexOf(v.code)]));
     }
   } else if (v.code === 'Tab') {
@@ -160,11 +197,65 @@ document.addEventListener('keyup', (v) => {
   });
 });
 
+optionButtons.forEach((v) => v.addEventListener('click', (key) => {
+  if (key.target === del) {
+    delText(textArea);
+  }
+  if (key.target === backSpace) {
+    backText(textArea);
+  }
+  if (key.target === tab) {
+    insertText(textArea, '    ');
+  }
+  if (key.target === cursorLeft) {
+    insertText(textArea, String.fromCharCode(8592));
+  }
+  if (key.target === cursorTop) {
+    insertText(textArea, String.fromCharCode(8593));
+  }
+  if (key.target === cursorRight) {
+    insertText(textArea, String.fromCharCode(8594));
+  }
+  if (key.target === cursorBottom) {
+    insertText(textArea, String.fromCharCode(8595));
+  }
+  if (key.target === enter) {
+    insertText(textArea, '\n');
+  }
+  if (key.target === capsLock || key.target === shiftLeft || key.target === shiftRight) {
+    key.target.classList.toggle('button-active');
+  }
+  if (key.target === ctrlLeft && shiftLeft.classList.contains('button-active')) {
+    if (localStorage.getItem('language') === 'ru') {
+      localStorage.setItem('language', 'en');
+      inputValue();
+      shiftLeft.classList.remove('button-active');
+    } else {
+      localStorage.setItem('language', 'ru');
+      inputValue();
+      shiftLeft.classList.remove('button-active');
+    }
+  }
+}));
+
 mainButtons.forEach((v, i) => v.addEventListener('click', () => {
   const lang = localStorage.getItem('language') || 'en';
+
   if (lang === 'en') {
-    insertText(textArea, data.enMain[i]);
-  } else {
-    insertText(textArea, data.ruMain[i]);
+    if (capsLock.classList.contains('button-active') && (shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active'))) {
+      insertText(textArea, data.enMain[i]);
+    } else if (data.extraCode.indexOf(v.code) !== -1 && ((shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active')))) {
+      insertText(textArea, data.enMain[i]);
+    } else if ((capsLock.classList.contains('button-active') || shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active'))) {
+      insertText(textArea, data.enMain[i].toLocaleUpperCase());
+    } else (insertText(textArea, data.enMain[i]));
+  } else if (lang === 'ru') {
+    if (capsLock.classList.contains('button-active') && (shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active'))) {
+      insertText(textArea, data.ruMain[i]);
+    } else if (data.extraCode.indexOf(v.code) !== -1 && ((shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active')))) {
+      insertText(textArea, data.ruMain[i]);
+    } else if ((capsLock.classList.contains('button-active') || shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active'))) {
+      insertText(textArea, data.ruMain[i].toLocaleUpperCase());
+    } else (insertText(textArea, data.ruMain[i]));
   }
 }));
