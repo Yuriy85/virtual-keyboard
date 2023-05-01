@@ -109,8 +109,8 @@ function inputValue() {
   textArea.focus();
   const lang = localStorage.getItem('language') || 'en';
   textArea.placeholder = lang === 'en'
-    ? 'English language. Press SHIFT + CTRL to change language. Keyboard was created by Windows.'
-    : 'Русский язык. Нажмите SHIFT + CTRL для смены языка. Клавиатура создана в Windows.';
+    ? 'English language. Press "left SHIFT + left CTRL" to change language. Keyboard was created by Windows.'
+    : 'Русский язык. Нажмите "левый SHIFT + левый CTRL" для смены языка. Клавиатура создана в Windows.';
   data.mainButtons.forEach((v, i) => {
     const button = v;
     button.innerText = lang === 'en' ? data.enMain[i].toUpperCase() : data.ruMain[i].toUpperCase();
