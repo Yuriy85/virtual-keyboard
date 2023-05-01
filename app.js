@@ -1,7 +1,7 @@
-const createButton = (value) => {
+const createButton = () => {
   const button = document.createElement('button');
   button.className = 'keyboard__button';
-  button.innerText = value || null;
+  button.innerText = null;
   return button;
 };
 const body = document.querySelector('.body');
@@ -41,36 +41,39 @@ for (let index = 0; index < 65; index += 1) {
 class BaseData {
   constructor() {
     this.allCode = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete', 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Period', 'Comma', 'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
-    this.ruMain = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', '\\', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '/', ' '];
-    this.enMain = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '.', ',', '/', ' '];
-    this.mainCode = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Period', 'Comma', 'Slash', 'Space'];
-    this.mainCodeRu = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'Space'];
-    this.enExtra = ['~', '!', '@', '#', '$', '%', ':', '?', '*', '(', ')', '_', '+', '/'];
-    this.extraCode = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backslash'];
-    this.ruExtra = ['Ё', '!', '"', '№', ';', '%', '^', '&', '*', '(', ')', '_', '+', '|'];
-    this.option = ['Backspace', 'Tab', 'DEL', 'Caps Lock', 'ENTER', 'Shift', '^', 'Shift', 'Ctrl', 'Win', 'Alt', 'Alt', 'Ctrl', '<', 'v', '>'];
+  }
+
+  addThis(name, value) {
+    this[name] = value;
   }
 }
 
 const data = new BaseData();
 
-const allButtons = Array.from(document.querySelectorAll('.keyboard__button'));
-const mainButtons = Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i < 13 || (i > 14 && i < 28) || (i > 29 && i < 41) || (i > 42 && i < 54) || i === 59);
-const extraButtons = Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i < 13 || i === 27);
-const optionButtons = Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i === 13 || i === 14 || i === 28 || i === 29 || i === 41 || i === 42 || (i >= 54 && i !== 59));
-
-const backSpace = optionButtons[0];
-const tab = optionButtons[1];
-const del = optionButtons[2];
-const capsLock = optionButtons[3];
-const enter = optionButtons[4];
-const shiftLeft = optionButtons[5];
-const cursorTop = optionButtons[6];
-const shiftRight = optionButtons[7];
-const ctrlLeft = optionButtons[8];
-const cursorLeft = optionButtons[13];
-const cursorBottom = optionButtons[14];
-const cursorRight = optionButtons[15];
+data.addThis('ruMain', ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', '\\', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '/', ' ']);
+data.addThis('enMain', ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '.', ',', '/', ' ']);
+data.addThis('mainCode', ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Period', 'Comma', 'Slash', 'Space']);
+data.addThis('mainCodeRu', ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'Space']);
+data.addThis('enExtra', ['~', '!', '@', '#', '$', '%', ':', '?', '*', '(', ')', '_', '+', '/']);
+data.addThis('extraCode', ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backslash']);
+data.addThis('ruExtra', ['Ё', '!', '"', '№', ';', '%', '^', '&', '*', '(', ')', '_', '+', '|']);
+data.addThis('option', ['Backspace', 'Tab', 'DEL', 'Caps Lock', 'ENTER', 'Shift', '^', 'Shift', 'Ctrl', 'Win', 'Alt', 'Alt', 'Ctrl', '<', 'v', '>']);
+data.addThis('allButtons', Array.from(document.querySelectorAll('.keyboard__button')));
+data.addThis('mainButtons', Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i < 13 || (i > 14 && i < 28) || (i > 29 && i < 41) || (i > 42 && i < 54) || i === 59));
+data.addThis('extraButtons', Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i < 13 || i === 27));
+data.addThis('optionButtons', Array.from(document.querySelectorAll('.keyboard__button')).filter((v, i) => i === 13 || i === 14 || i === 28 || i === 29 || i === 41 || i === 42 || (i >= 54 && i !== 59)));
+data.addThis('backSpace', data.optionButtons[0]);
+data.addThis('tab', data.optionButtons[1]);
+data.addThis('del', data.optionButtons[2]);
+data.addThis('capsLock', data.optionButtons[3]);
+data.addThis('enter', data.optionButtons[4]);
+data.addThis('shiftLeft', data.optionButtons[5]);
+data.addThis('cursorTop', data.optionButtons[6]);
+data.addThis('shiftRight', data.optionButtons[7]);
+data.addThis('ctrlLeft', data.optionButtons[8]);
+data.addThis('cursorLeft', data.optionButtons[13]);
+data.addThis('cursorBottom', data.optionButtons[14]);
+data.addThis('cursorRight', data.optionButtons[15]);
 
 function insertText(textarea, text) {
   const txt = textarea;
@@ -108,18 +111,18 @@ function inputValue() {
   textArea.placeholder = lang === 'en'
     ? 'English language. Press SHIFT + CTRL to change language. Keyboard was created by Windows.'
     : 'Русский язык. Нажмите SHIFT + CTRL для смены языка. Клавиатура создана в Windows.';
-  mainButtons.forEach((v, i) => {
+  data.mainButtons.forEach((v, i) => {
     const button = v;
     button.innerText = lang === 'en' ? data.enMain[i].toUpperCase() : data.ruMain[i].toUpperCase();
   });
-  extraButtons.forEach((v, i) => {
+  data.extraButtons.forEach((v, i) => {
     const button = v;
     const extraArea = document.createElement('span');
     extraArea.className = 'button__extra';
     button.appendChild(extraArea);
     extraArea.innerText = lang === 'en' ? data.enExtra[i].toUpperCase() : data.ruExtra[i].toUpperCase();
   });
-  optionButtons.forEach((v, i) => {
+  data.optionButtons.forEach((v, i) => {
     const button = v;
     button.innerText = data.option[i];
   });
@@ -127,7 +130,8 @@ function inputValue() {
     document.querySelectorAll('.button__extra')[0].innerText = '';
   }
 }
-inputValue();
+
+window.addEventListener('load', inputValue);
 
 document.addEventListener('keydown', (v) => {
   const lang = localStorage.getItem('language') || 'en';
@@ -135,19 +139,19 @@ document.addEventListener('keydown', (v) => {
   if (data.mainCode.indexOf(v.code) !== -1) {
     v.preventDefault();
     if (lang === 'en') {
-      if (capsLock.classList.contains('button-active') && (shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active'))) {
+      if (data.capsLock.classList.contains('button-active') && (data.shiftLeft.classList.contains('button-active') || data.shiftRight.classList.contains('button-active'))) {
         insertText(textArea, data.enMain[data.mainCode.indexOf(v.code)]);
-      } else if (data.extraCode.indexOf(v.code) !== -1 && ((shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active')))) {
+      } else if (data.extraCode.indexOf(v.code) !== -1 && ((data.shiftLeft.classList.contains('button-active') || data.shiftRight.classList.contains('button-active')))) {
         insertText(textArea, data.enExtra[data.extraCode.indexOf(v.code)]);
-      } else if ((capsLock.classList.contains('button-active') || shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active')) && data.extraCode.indexOf(v.code) === -1) {
+      } else if ((data.capsLock.classList.contains('button-active') || data.shiftLeft.classList.contains('button-active') || data.shiftRight.classList.contains('button-active')) && data.extraCode.indexOf(v.code) === -1) {
         insertText(textArea, data.enMain[data.mainCode.indexOf(v.code)].toUpperCase());
       } else (insertText(textArea, data.enMain[data.mainCode.indexOf(v.code)]));
     } else if (lang === 'ru') {
-      if (capsLock.classList.contains('button-active') && (shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active'))) {
+      if (data.capsLock.classList.contains('button-active') && (data.shiftLeft.classList.contains('button-active') || data.shiftRight.classList.contains('button-active'))) {
         insertText(textArea, data.ruMain[data.mainCodeRu.indexOf(v.code)]);
-      } else if (data.extraCode.indexOf(v.code) !== -1 && ((shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active')))) {
-        insertText(textArea, data.enExtra[data.extraCode.indexOf(v.code)]);
-      } else if ((capsLock.classList.contains('button-active') || shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active')) && data.extraCode.indexOf(v.code) === -1) {
+      } else if (data.extraCode.indexOf(v.code) !== -1 && ((data.shiftLeft.classList.contains('button-active') || data.shiftRight.classList.contains('button-active')))) {
+        insertText(textArea, data.ruExtra[data.extraCode.indexOf(v.code)]);
+      } else if ((data.capsLock.classList.contains('button-active') || data.shiftLeft.classList.contains('button-active') || data.shiftRight.classList.contains('button-active')) && data.extraCode.indexOf(v.code) === -1) {
         insertText(textArea, data.ruMain[data.mainCodeRu.indexOf(v.code)].toUpperCase());
       } else (insertText(textArea, data.ruMain[data.mainCodeRu.indexOf(v.code)]));
     }
@@ -160,17 +164,17 @@ document.addEventListener('keydown', (v) => {
   data.allCode.forEach((code, i) => {
     if (code === v.code && code !== 'CapsLock') {
       if (v.code === 'Period' && lang === 'ru') {
-        allButtons[i + 1].classList.add('button-active');
+        data.allButtons[i + 1].classList.add('button-active');
       } else if (v.code === 'Comma' && lang === 'ru') {
-        allButtons[i - 1].classList.add('button-active');
+        data.allButtons[i - 1].classList.add('button-active');
       } else {
-        allButtons[i].classList.add('button-active');
+        data.allButtons[i].classList.add('button-active');
       }
     }
     if (code === v.code && code === 'CapsLock') {
-      allButtons[i].classList.toggle('button-active');
+      data.allButtons[i].classList.toggle('button-active');
     }
-    if (allButtons[42].classList.contains('button-active') && v.code === 'ControlLeft') {
+    if (data.allButtons[42].classList.contains('button-active') && v.code === 'ControlLeft') {
       if (localStorage.getItem('language') === 'ru') {
         localStorage.setItem('language', 'en');
         inputValue();
@@ -187,75 +191,98 @@ document.addEventListener('keyup', (v) => {
   data.allCode.forEach((code, i) => {
     if (code === v.code && code !== 'CapsLock') {
       if (v.code === 'Period' && lang === 'ru') {
-        allButtons[i + 1].classList.remove('button-active');
+        data.allButtons[i + 1].classList.remove('button-active');
       } else if (v.code === 'Comma' && lang === 'ru') {
-        allButtons[i - 1].classList.remove('button-active');
+        data.allButtons[i - 1].classList.remove('button-active');
       } else {
-        allButtons[i].classList.remove('button-active');
+        data.allButtons[i].classList.remove('button-active');
       }
     }
   });
 });
 
-optionButtons.forEach((v) => v.addEventListener('click', (key) => {
-  if (key.target === del) {
+data.optionButtons.forEach((v) => v.addEventListener('click', (key) => {
+  if (key.target === data.del) {
     delText(textArea);
   }
-  if (key.target === backSpace) {
+  if (key.target === data.backSpace) {
     backText(textArea);
   }
-  if (key.target === tab) {
+  if (key.target === data.tab) {
     insertText(textArea, '    ');
   }
-  if (key.target === cursorLeft) {
+  if (key.target === data.cursorLeft) {
     insertText(textArea, String.fromCharCode(8592));
   }
-  if (key.target === cursorTop) {
+  if (key.target === data.cursorTop) {
     insertText(textArea, String.fromCharCode(8593));
   }
-  if (key.target === cursorRight) {
+  if (key.target === data.cursorRight) {
     insertText(textArea, String.fromCharCode(8594));
   }
-  if (key.target === cursorBottom) {
+  if (key.target === data.cursorBottom) {
     insertText(textArea, String.fromCharCode(8595));
   }
-  if (key.target === enter) {
+  if (key.target === data.enter) {
     insertText(textArea, '\n');
   }
-  if (key.target === capsLock || key.target === shiftLeft || key.target === shiftRight) {
+  if (key.target === data.capsLock
+    || key.target === data.shiftLeft || key.target === data.shiftRight) {
     key.target.classList.toggle('button-active');
   }
-  if (key.target === ctrlLeft && shiftLeft.classList.contains('button-active')) {
+  if (key.target === data.ctrlLeft && data.shiftLeft.classList.contains('button-active')) {
     if (localStorage.getItem('language') === 'ru') {
       localStorage.setItem('language', 'en');
       inputValue();
-      shiftLeft.classList.remove('button-active');
+      data.shiftLeft.classList.remove('button-active');
     } else {
       localStorage.setItem('language', 'ru');
       inputValue();
-      shiftLeft.classList.remove('button-active');
+      data.shiftLeft.classList.remove('button-active');
     }
   }
 }));
 
-mainButtons.forEach((v, i) => v.addEventListener('click', () => {
+data.mainButtons.forEach((v, i) => v.addEventListener('click', () => {
   const lang = localStorage.getItem('language') || 'en';
 
   if (lang === 'en') {
-    if (capsLock.classList.contains('button-active') && (shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active'))) {
-      insertText(textArea, data.enMain[i]);
-    } else if (data.extraCode.indexOf(v.code) !== -1 && ((shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active')))) {
-      insertText(textArea, data.enMain[i]);
-    } else if ((capsLock.classList.contains('button-active') || shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active'))) {
+    if (data.capsLock.classList.contains('button-active') && (data.shiftLeft.classList.contains('button-active') || data.shiftRight.classList.contains('button-active'))) {
+      if (data.extraButtons.indexOf(v) === -1) {
+        insertText(textArea, data.enMain[i]);
+      }
+    } else if (data.capsLock.classList.contains('button-active')) {
       insertText(textArea, data.enMain[i].toLocaleUpperCase());
+    } else if (data.shiftLeft.classList.contains('button-active') || data.shiftRight.classList.contains('button-active')) {
+      if (data.extraButtons.indexOf(v) === -1) {
+        insertText(textArea, data.enMain[i].toLocaleUpperCase());
+      }
     } else (insertText(textArea, data.enMain[i]));
   } else if (lang === 'ru') {
-    if (capsLock.classList.contains('button-active') && (shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active'))) {
-      insertText(textArea, data.ruMain[i]);
-    } else if (data.extraCode.indexOf(v.code) !== -1 && ((shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active')))) {
-      insertText(textArea, data.ruMain[i]);
-    } else if ((capsLock.classList.contains('button-active') || shiftLeft.classList.contains('button-active') || shiftRight.classList.contains('button-active'))) {
+    if (data.capsLock.classList.contains('button-active') && (data.shiftLeft.classList.contains('button-active') || data.shiftRight.classList.contains('button-active'))) {
+      if (data.extraButtons.indexOf(v) === -1) {
+        insertText(textArea, data.ruMain[i]);
+      }
+    } else if (data.capsLock.classList.contains('button-active')) {
       insertText(textArea, data.ruMain[i].toLocaleUpperCase());
+    } else if (data.shiftLeft.classList.contains('button-active') || data.shiftRight.classList.contains('button-active')) {
+      if (data.extraButtons.indexOf(v) === -1) {
+        insertText(textArea, data.ruMain[i].toLocaleUpperCase());
+      }
     } else (insertText(textArea, data.ruMain[i]));
+  }
+}));
+
+data.extraButtons.forEach((v, i) => v.addEventListener('click', () => {
+  const lang = localStorage.getItem('language') || 'en';
+
+  if (lang === 'en') {
+    if (data.shiftLeft.classList.contains('button-active') || data.shiftRight.classList.contains('button-active')) {
+      insertText(textArea, data.enExtra[i]);
+    }
+  } else if (lang === 'ru') {
+    if (data.shiftLeft.classList.contains('button-active') || data.shiftRight.classList.contains('button-active')) {
+      insertText(textArea, data.ruExtra[i]);
+    }
   }
 }));

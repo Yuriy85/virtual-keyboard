@@ -9,14 +9,16 @@
 .body {
   margin: auto;
   min-width: 1044px;
+  background: radial-gradient(91% 204% at 15% 50%, #446371, #1a1a1c);
 }
 .keyboard {
   width: 1024px;
   min-height: 100px;
-  background-color: aliceblue;
+  background-color: #5b8294;
   margin: auto;
   margin-top: 20px;
   padding: 10px;
+  border-radius: 5px;
 }
 .keyboard__text {
   width: 100%;
@@ -25,9 +27,14 @@
   min-height: 78px;
   margin-bottom: 15px;
   padding: 2px;
+  background: radial-gradient(91% 204% at 15% 50%, #3d525b, #1a1a1c);
+  color: aliceblue;
 }
 .keyboard__text:focus-visible {
   outline: none;
+}
+.keyboard__text::placeholder {
+  color: rgba(240, 248, 255, 0.459);
 }
 .wrapper {
   display: flex;
@@ -57,12 +64,12 @@
   background-color: #1c232e;
   color: darkgrey;
 }
-.button__extra{
+.button__extra {
   position: absolute;
   left: 3px;
   top: 3px;
 }
 .button-active {
-  background-color: #6995dc;
+  background-color: #3b96bf;
   border-style: inset;
 }
