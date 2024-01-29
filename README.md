@@ -1,6 +1,6 @@
 # Virtual Keyboard
 
-## [Deploy: Go to Virtual Keyboard]([https://yuriy85.github.io/dima_pdr/](https://yuriy85.github.io/virtual-keyboard/))
+## [Deploy: Go to Virtual Keyboard](https://yuriy85.github.io/virtual-keyboard/)
 
 **Overview:**
 This educational project in JavaScript focuses on creating a virtual keyboard.
